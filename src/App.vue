@@ -3,15 +3,14 @@
     <div class="image-person">
       <img src="images/logo.png" alt="logo.png" />
     </div>
-    <form class="main">
+    <form class="main" @submit.prevent="addContact">
       <h1 class="title">Contact Us</h1>
-
       <label>Full Name</label>
-      <input type="text" />
+      <input type="text" v-model="contacto.fullname" />
       <label>E-mail</label>
-      <input type="email" />
+      <input type="email" v-model="contacto.email" />
       <label>Message</label>
-      <input type="text" />
+      <input type="text" v-model="contacto.message" />
       <button>Contact us</button>
     </form>
     <div class="all-contacts">
@@ -30,7 +29,30 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+//import { ref } from "vue";
+import contacts from "./config/Contacts";
+
+//const info = ref<string[]>[];
+interface Contact {
+  fullname: string;
+  email: string;
+  message: string;
+}
+let contacto = {
+  id: +1,
+  fullname: "",
+  email: "",
+  message: "",
+};
+
+function addContact(contacto: Contact) {
+  contacts
+    .salvar(contacto)
+    .then((res) => console.log(res))
+    .catch((e) => console.log(e));
+}
+</script>
 
 <style lang="scss">
 * {
