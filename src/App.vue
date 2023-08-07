@@ -6,11 +6,11 @@
     <form class="main" @submit.prevent="addContact">
       <h1 class="title">Contact Us</h1>
       <label>Full Name</label>
-      <input type="text" v-model="contacto.fullname" />
+      <input type="text" v-model="info.fullname" />
       <label>E-mail</label>
-      <input type="email" v-model="contacto.email" />
+      <input type="email" v-model="info.email" />
       <label>Message</label>
-      <input type="text" v-model="contacto.message" />
+      <input type="text" v-model="info.message" />
       <button>Contact us</button>
     </form>
     <div class="all-contacts">
@@ -30,25 +30,17 @@
 </template>
 
 <script setup lang="ts">
-//import { ref } from "vue";
-import contacts from "./config/Contacts";
-
-//const info = ref<string[]>[];
-interface Contact {
-  fullname: string;
-  email: string;
-  message: string;
-}
-let contacto = {
-  id: +1,
+import { ref } from "vue";
+import Contacts from "./config/Contacts";
+let info = ref({
+  id: "",
   fullname: "",
   email: "",
   message: "",
-};
+});
 
-function addContact(contacto: Contact) {
-  contacts
-    .salvar(contacto)
+function addContact() {
+  Contacts.salvar(info.value)
     .then((res) => console.log(res))
     .catch((e) => console.log(e));
 }
