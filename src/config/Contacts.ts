@@ -1,4 +1,4 @@
-import HttpClient, { http } from "./HttpContact";
+import HttpClient from "./HttpContact";
 
 interface Contact {
   id: number;
