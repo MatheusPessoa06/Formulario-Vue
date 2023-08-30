@@ -6,7 +6,7 @@
     <form class="main" @submit.prevent="addContact">
       <h1 class="title">Contact Us</h1>
       <label>Full Name</label>
-      <input type="text" v-model="info.fullname" />
+      <input type="text" v-model="info.fullName" />
       <label>E-mail</label>
       <input type="email" v-model="info.email" />
       <label>Message</label>
@@ -30,17 +30,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import Contacts from "./config/Contacts";
-let info = ref({
-  id: "",
-  fullname: "",
-  email: "",
-  message: "",
-});
+import { reactive } from "vue";
+import ContactService from "./config/Contacts";
+import ClientModel from "./models/Client";
+
+const info = reactive(new ClientModel());
 
 function addContact() {
-  Contacts.salvar(info.value)
+  new ContactService()
+    .save(info)
     .then((res) => console.log(res))
     .catch((e) => console.log(e));
 }

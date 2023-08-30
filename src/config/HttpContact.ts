@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 //export const http = axios.create({
 //baseURL: "http://localhost:3000",
@@ -15,6 +15,7 @@ export default class HttpClient {
   public get<T = unknown>(url: string): Promise<AxiosResponse<T>> {
     return this.http.get(url);
   }
+
   public post<T = unknown>(
     url: string,
     data: unknown

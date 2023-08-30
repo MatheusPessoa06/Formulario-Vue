@@ -1,17 +1,19 @@
 import HttpClient from "./HttpContact";
+import ClientModel from "@/models/Client";
 
-interface Contact {
-  id: number;
-  fullname: string;
-  email: string;
-  message: string;
+export default class ContactService {
+  private HttpClient: HttpClient;
+
+  constructor() {
+    this.HttpClient = new HttpClient();
+  }
+
+  public async save(contactForm: ClientModel) {
+    return await this.HttpClient.post("/contacts", {
+      full_name: contactForm.fullName,
+      email: contactForm.email,
+      message: contactForm.message,
+      id: contactForm.id,
+    });
+  }
 }
-
-export default {
-  salvar: (Contacts: Contact) => {
-    return new HttpClient().post("/contacts", Contacts);
-  },
-  mostrar: () => {
-    return new HttpClient().get("/contacts");
-  },
-};
